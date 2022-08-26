@@ -1,23 +1,14 @@
-import logo from './logo.svg';
+import { Container } from '@mui/material';
 import './App.css';
+import Input from './Input';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div  className="App">
+    <div style={{background:"linear-gradient(to right, rgb(242, 112, 156), rgb(255, 148, 114))",minWidth: "100vw",minHeight: "100vh",position: "fixed",zIndex: -5,left:0,top:0}}></div>
+    <Container>
+      <Input></Input>
+    </Container>
     </div>
   );
 }
