@@ -87,7 +87,7 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
   return (
     <Box sx={{color:"white"}}>
     <Typography sx={{mb:10,fontSize:{lg:"4rem", md:"3rem",sm:"2rem",xs:"1.3rem"}}} variant="h4">Supa Password Žėnėrator</Typography>
-    <Box sx={{display:"flex",justifyContent:"center",alignItems:"center", flexDirection:{md:"row",xs:"column"}, mt:10,}}>
+    <Box sx={{display:"flex",justifyContent:"center",alignItems:{sm:"center",xs:"baseline"}, flexDirection:{md:"row",xs:"column"}, mt:10,}}>
       <Box sx={{width:"40vw",display:"flex"}}>
 
         <form onSubmit={(event) => generator(event)}>
