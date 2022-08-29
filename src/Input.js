@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import InputUnstyled from "@mui/base/InputUnstyled";
 import { styled } from "@mui/system";
-import { Box, Checkbox, FormControlLabel, FormGroup, ListItem, ListItemText, Paper, Typography,} from "@mui/material";
-
+import { Box, Button, Checkbox, FormControlLabel, FormGroup, ListItem, ListItemText, Paper, Typography,} from "@mui/material";
+//variables outside
 const blue = {100: "#DAECFF", 200: "#80BFFF", 400: "#3399FF", 600: "#0072E5",};
-
 const grey = { 50: "#F3F6F9", 100: "#E7EBF0", 200: "#E0E3E7", 300: "#CDD2D7", 400: "#B2BAC2", 500: "#A0AAB4", 600: "#6F7E8C", 700: "#3E5060",800: "#2D3843",900: "#1A2027",};
 
 const StyledInputElement = styled("input")(
   ({ theme }) => `
-  width: 320px;
+  width: 250px;
   font-size: 0.875rem;
   font-family: IBM Plex Sans, sans-serif;
   font-weight: 400;
@@ -19,14 +18,12 @@ const StyledInputElement = styled("input")(
   border: 1px solid ${theme.palette.mode === "dark" ? grey[800] : grey[300]};
   border-radius: 8px;
   padding: 12px 12px;
-
   &:hover {background: ${theme.palette.mode === "dark" ? "" : grey[100]};
-    border-color: ${theme.palette.mode === "dark" ? grey[700] : grey[400]};}
-&:focus {outline: 3px solid ${theme.palette.mode === "dark" ? blue[600] : blue[100]};}`);
-
-
+  border-color: ${theme.palette.mode === "dark" ? grey[700] : grey[400]};}
+  &:focus {outline: 3px solid ${theme.palette.mode === "dark" ? blue[600] : blue[100]};}`);
 
 const CustomInput = React.forwardRef(function CustomInput(props, ref) {
+  //variables inside
     const [password,passwordUpdate] = useState("No Password Generated Yet")
     const [input,inputUpdate] = useState(10)
     const [passwords,passwordsUpdate] = useState(JSON.parse(localStorage.getItem('content')) === null ? [] : JSON.parse(localStorage.getItem('content')))
@@ -35,40 +32,16 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
     const [form3,form3Update] = useState(false)
     const [form4,form4Update] = useState(false)
 
-    useEffect(()=>{ localStorage.setItem('content', JSON.stringify(passwords)) }, [passwords])
+    const min = 1;
+    const max = 50;
 
-    const formCheck1 = () =>{
-        if(form1){
-            form1Update(false)
-        }
-        else{
-            form1Update(true)
-        }
-    }
-    const formCheck2 = () =>{
-        if(form2){
-            form2Update(false)
-        }
-        else{
-            form2Update(true)
-        }
-    }
-    const formCheck3 = () =>{
-        if(form3){
-            form3Update(false)
-        }
-        else{
-            form3Update(true)
-        }
-    }
-    const formCheck4 = () =>{
-        if(form4){
-            form4Update(false)
-        }
-        else{
-            form4Update(true)
-        }
-    }
+    useEffect(()=>{ localStorage.setItem('content', JSON.stringify(passwords)) }, [passwords])
+    
+    //functions
+      const handleChange = e => {
+        const value = Math.max(min, Math.min(max, Number(e)));
+        inputUpdate(value);
+      };
 
     const generator = (event) =>{
         event.preventDefault();
@@ -92,42 +65,55 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
            sum += fullString[Math.floor(Math.random() * fullString.length)]
         }
         if(passwords.length > 9){
-            passwords.splice(0,1)
+            passwords.pop()
         }
-        passwordsUpdate([...passwords,sum])
+        passwordsUpdate([sum,...passwords])
     }
     passwordUpdate(sum)
     }
 
+    const reset = () =>{
+      passwordsUpdate([])
+      inputUpdate(10)
+      form1Update(true)
+      form2Update(true)
+      form3Update(false)
+      form4Update(false)
+      passwordUpdate("")
+    }
 
+
+//html / jsx
   return (
     <Box sx={{color:"white"}}>
-    <Typography sx={{mb:10}} variant="h2">Supa Password Žėnėrator</Typography>
-    <Box sx={{display:"flex",justifyContent:"space-between",flexDirection:"row", mt:10,}}>
+    <Typography sx={{mb:10,fontSize:{lg:"4rem", md:"3rem",sm:"2rem",xs:"1.3rem"}}} variant="h4">Supa Password Žėnėrator</Typography>
+    <Box sx={{display:"flex",justifyContent:"space-between",alignItems:{xl:"center",lg:"center",md:"center",sm:"center"}, flexDirection:{xl:"row",lg:"row",md:"column",sm:"column",xs:"column"}, mt:10,}}>
       <Box sx={{width:"40vw",display:"flex"}}>
 
         <form onSubmit={(event) => generator(event)}>
-        <Typography sx={{mb:3}} variant="h4">Password Žėnėrator</Typography>
-          <InputUnstyled onChange={(e) => inputUpdate(e.target.value)} value={input} type="number" components={{ Input: StyledInputElement }}{...props}ref={ref}/>
+        <Typography sx={{mb:3,fontSize:{lg:"3rem", md:"2.5rem",sm:"2rem",xs:"1.3rem"}}} variant="h4">Žėnėrator</Typography>
+          <InputUnstyled sx={{width:"250px"}} onChange={(e) => handleChange(e.target.value)} value={input} type="number" components={{ Input: StyledInputElement }}{...props}ref={ref}/>
           <FormGroup>
-            <FormControlLabel onChange={() => formCheck1()} control={<Checkbox defaultChecked />} label="Mažosios raidės"/>
-            <FormControlLabel onChange={() => formCheck2()} control={<Checkbox defaultChecked />}label="Didžiosios raidės" />
-            <FormControlLabel onChange={() => formCheck3()} control={<Checkbox />} label="Skaičiai" />
-            <FormControlLabel onChange={() => formCheck4()} control={<Checkbox />} label="Simboliai" />
+            <FormControlLabel onChange={(e) => form1Update(e.target.checked)} control={<Checkbox checked={form1} />} label="Mažosios raidės"/>
+            <FormControlLabel onChange={(e) => form2Update(e.target.checked)} control={<Checkbox checked={form2} />}label="Didžiosios raidės" />
+            <FormControlLabel onChange={(e) => form3Update(e.target.checked)} control={<Checkbox checked={form3} />} label="Skaičiai" />
+            <FormControlLabel onChange={(e) => form4Update(e.target.checked)} control={<Checkbox checked={form4} />} label="Simboliai" />
           </FormGroup>
+          <Button type="submit" variant="contained" sx={{color:"white",mr:2}}>Generate</Button>
+          <Button onClick={() => reset()} variant="contained" sx={{color:"white"}}>Reset</Button>
         </form>
       </Box>
       <Box>
-      <Typography variant="h3">New Password</Typography>
-      <Paper sx={{width:"500px",fontSize:"2.5rem",wordWrap:"break-word"}}>
+      <Typography sx={{fontSize:{lg:"3rem", md:"2.5rem",sm:"2rem",xs:"1rem"},pt:5}} variant="h3">New Password</Typography>
+      <Paper sx={{minWidth:{xl:"500px", lg:"500px", md:"500px", sm:"400px", xs:"250px", },fontSize:{xl:"2.5rem",lg:"2.5rem",md:"2.5rem",sm:"2rem",xs:"1.5rem"},wordWrap:"break-word"}}>
         <div>{password}</div>
       </Paper>
-        <Typography sx={{mt:10}} variant="h4">Password History</Typography>
-      <Paper sx={{minWidth:"500px",minHeight:"50px",fontSize:"2.5rem"}}>
+        <Typography sx={{mt:10,fontSize:{lg:"3rem", md:"2.5rem",sm:"2rem",xs:"1.3rem"}}} variant="h4">Password History</Typography>
+      <Paper sx={{minWidth:{xl:"500px", lg:"500px", md:"500px", sm:"400px", xs:"250px", },minHeight:"50px",fontSize:{xl:"2.5rem",lg:"2.5rem",md:"2.5rem",sm:"2rem",xs:"1.5rem"}}}>
       {passwords.map((item,index) => {
           return (
             <ListItem key={index}>
-              <ListItemText primary={item}></ListItemText>
+              <ListItemText primary={(index + 1)+". "+item}></ListItemText>
             </ListItem>
           );
         })}
@@ -137,7 +123,7 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
     </Box>
   );
 });
-
+//export duhh
 export default function Input() {
   return <CustomInput aria-label="Demo input" placeholder="Password Length" />;
 }
