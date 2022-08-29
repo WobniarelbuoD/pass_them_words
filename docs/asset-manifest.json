@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/pass_them_words/static/css/main.abd64e84.css",
+    "main.js": "/pass_them_words/static/js/main.ae0c6e9e.js",
+    "index.html": "/pass_them_words/index.html",
+    "main.abd64e84.css.map": "/pass_them_words/static/css/main.abd64e84.css.map",
+    "main.ae0c6e9e.js.map": "/pass_them_words/static/js/main.ae0c6e9e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.abd64e84.css",
+    "static/js/main.ae0c6e9e.js"
+  ]
+}
