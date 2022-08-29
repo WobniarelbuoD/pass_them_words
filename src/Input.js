@@ -87,7 +87,7 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
   return (
     <Box sx={{color:"white"}}>
     <Typography sx={{mb:10,fontSize:{lg:"4rem", md:"3rem",sm:"2rem",xs:"1.3rem"}}} variant="h4">Supa Password Žėnėrator</Typography>
-    <Box sx={{display:"flex",justifyContent:"space-between",alignItems:{xl:"center",lg:"center",md:"center",sm:"center"}, flexDirection:{xl:"row",lg:"row",md:"column",sm:"column",xs:"column"}, mt:10,}}>
+    <Box sx={{display:"flex",justifyContent:"space-between",alignItems:{xl:"baseline",lg:"baseline",md:"baseline",sm:"baseline"}, flexDirection:{xl:"row",lg:"row",md:"column",sm:"column",xs:"column"}, mt:10,}}>
       <Box sx={{width:"40vw",display:"flex"}}>
 
         <form onSubmit={(event) => generator(event)}>
@@ -105,15 +105,15 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
       </Box>
       <Box>
       <Typography sx={{fontSize:{lg:"3rem", md:"2.5rem",sm:"2rem",xs:"1rem"},pt:5}} variant="h3">New Password</Typography>
-      <Paper sx={{minWidth:{xl:"500px", lg:"500px", md:"500px", sm:"400px", xs:"250px", },fontSize:{xl:"2.5rem",lg:"2.5rem",md:"2.5rem",sm:"2rem",xs:"1.5rem"},wordWrap:"break-word"}}>
+      <Paper sx={{width:{xl:"500px", lg:"500px", md:"500px", sm:"400px", xs:"250px", },fontSize:{xl:"2.5rem",lg:"2.5rem",md:"2.5rem",sm:"2rem",xs:"1.5rem"},wordWrap:"break-word"}}>
         <div>{password}</div>
       </Paper>
         <Typography sx={{mt:10, fontSize:{lg:"3rem", md:"2.5rem",sm:"2rem",xs:"1.3rem"}}} variant="h4">Password History</Typography>
-      <Paper sx={{minWidth:{xl:"500px", lg:"500px", md:"500px", sm:"400px", xs:"250px", },minHeight:"50px",fontSize:{xl:"2.5rem",lg:"2.5rem",md:"2.5rem",sm:"2rem",xs:"1.5rem"}}}>
+      <Paper sx={{width:{xl:"500px", lg:"500px", md:"500px", sm:"400px", xs:"250px", },minHeight:"50px",fontSize:{xl:"2.5rem",lg:"2.5rem",md:"2.5rem",sm:"2rem",xs:"1.5rem"}}}>
       {passwords.map((item,index) => {
           return (
             <ListItem key={index}>
-              <ListItemText primary={(index + 1)+". "+item}></ListItemText>
+              <ListItemText style={{wordBreak:"break-word"}} primary={item}></ListItemText>
             </ListItem>
           );
         })}
