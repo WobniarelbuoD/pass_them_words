@@ -108,7 +108,7 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
       <Paper sx={{minWidth:{xl:"500px", lg:"500px", md:"500px", sm:"400px", xs:"250px", },fontSize:{xl:"2.5rem",lg:"2.5rem",md:"2.5rem",sm:"2rem",xs:"1.5rem"},wordWrap:"break-word"}}>
         <div>{password}</div>
       </Paper>
-        <Typography sx={{mt:10,fontSize:{lg:"3rem", md:"2.5rem",sm:"2rem",xs:"1.3rem"}}} variant="h4">Password History</Typography>
+        <Typography sx={{mt:10, fontSize:{lg:"3rem", md:"2.5rem",sm:"2rem",xs:"1.3rem"}}} variant="h4">Password History</Typography>
       <Paper sx={{minWidth:{xl:"500px", lg:"500px", md:"500px", sm:"400px", xs:"250px", },minHeight:"50px",fontSize:{xl:"2.5rem",lg:"2.5rem",md:"2.5rem",sm:"2rem",xs:"1.5rem"}}}>
       {passwords.map((item,index) => {
           return (
